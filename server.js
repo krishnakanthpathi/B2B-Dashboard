@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config'; // Make sure env variables are loaded
 import sequelize, { connectDB } from './config/db.js';
+
 import organizationRoutes from './routes/organizations.js';
 import userRoutes from './routes/users.js';
 
