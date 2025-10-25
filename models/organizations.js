@@ -17,6 +17,7 @@ const Organization = sequelize.define('Organization', {
     allowNull: false,
     unique: true
   },
+  img : { type: DataTypes.STRING },
   slug: {
     type: DataTypes.STRING,
     unique: true

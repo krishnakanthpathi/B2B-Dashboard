@@ -43,7 +43,7 @@ const startServer = async () => {
     // 2. Sync models with the database
     // This creates tables if they don't exist
     // Use { alter: true } in dev to update tables, but be careful in prod.
-    await sequelize.sync(); 
+    await sequelize.sync({ alter: true }); 
     console.log("All models were synchronized successfully.");
     
     // 3. Start the Express server

@@ -51,6 +51,7 @@ const get_id = async (req, res) => {
 
 // Add a new organization from the "Add Organization" modal.
 const create =  async (req, res) => {
+  console.log("Creating organization with data:", req.body);
   try {
     const { name, slug } = req.body;
     const newOrganization = await Organization.create({
@@ -63,6 +64,7 @@ const create =  async (req, res) => {
     if (err.name === 'SequelizeUniqueConstraintError') {
       return res.status(400).json({ message: 'Email or slug already in use.' });
     }
+    console.error("Error creating organization:", err);
     res.status(400).json({ message: err.message });
   }
 }
