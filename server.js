@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 3001;
 
 // --- MIDDLEWARE ---
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // --- API ROUTES ---
 app.use('/api/organizations', organizationRoutes);
@@ -41,8 +41,6 @@ const startServer = async () => {
     await connectDB();
     
     // 2. Sync models with the database
-    // This creates tables if they don't exist
-    // Use { alter: true } in dev to update tables, but be careful in prod.
     await sequelize.sync({ alter: true }); 
     console.log("All models were synchronized successfully.");
     
