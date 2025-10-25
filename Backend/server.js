@@ -5,17 +5,12 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config'; // Make sure env variables are loaded
 import sequelize, { connectDB } from './config/db.js';
-
 import organizationRoutes from './routes/organizations.js';
 import userRoutes from './routes/users.js';
 
-console.log("Checking environment variables...");
-console.log("DB_SSL setting is:", process.env.DB_SSL); // <-- ADD THIS LINE
-console.log("DB_HOST setting is:", process.env.DB_HOST); // <-- ADD THIS LINE
-
 // Import models to sync them
-import './models/organizations.js';
-import './models/users.js';
+import './models/organization.js';
+import './models/user.js';
 
 // --- INITIALIZE EXPRESS APP ---
 const app = express();
@@ -23,7 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 // --- MIDDLEWARE ---
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json());
 
 // --- API ROUTES ---
 app.use('/api/organizations', organizationRoutes);
@@ -41,7 +36,9 @@ const startServer = async () => {
     await connectDB();
     
     // 2. Sync models with the database
-    await sequelize.sync({ alter: true }); 
+    // This creates tables if they don't exist
+    // Use { alter: true } in dev to update tables, but be careful in prod.
+    await sequelize.sync(); 
     console.log("All models were synchronized successfully.");
     
     // 3. Start the Express server
@@ -54,3 +51,5 @@ const startServer = async () => {
 };
 
 startServer();
+
+export default app;
