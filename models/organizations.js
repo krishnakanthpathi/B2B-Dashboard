@@ -17,7 +17,15 @@ const Organization = sequelize.define('Organization', {
     allowNull: false,
     unique: true
   },
-  img : { type: DataTypes.STRING },
+  // Use MEDIUMTEXT to support ~10MB base64 strings
+  img: {
+    type: DataTypes.TEXT('medium'),
+    allowNull: true,
+    validate: {
+      // enforce max ~10MB at the application level (10 * 1024 * 1024 = 10485760 chars)
+      len: [0, 20 * 1024 * 1024]
+    }
+  },
   slug: {
     type: DataTypes.STRING,
     unique: true
