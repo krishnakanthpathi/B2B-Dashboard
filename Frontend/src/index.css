@@ -1,0 +1,61 @@
+/* --- Global Styles --- */
+body {
+  background-color: #f9fafb; /* bg-gray-50 */
+  color: #111827; /* text-gray-900 */
+}
+
+/* --- Status Pills / Badges --- */
+.badge.bg-status-active {
+  background-color: #D1FAE5 !important;
+  color: #065F46 !important;
+}
+.badge.bg-status-blocked {
+  background-color: #FEE2E2 !important;
+  color: #991B1B !important;
+}
+.badge.bg-status-inactive {
+  background-color: #E5E7EB !important;
+  color: #374151 !important;
+}
+.badge.bg-status-coordinator {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Match dot color to the text color for contrast */
+.bg-status-active .badge-dot { background-color: #065F46; }
+.bg-status-blocked .badge-dot { background-color: #991B1B; }
+.bg-status-inactive .badge-dot { background-color: #374151; }
+.bg-status-coordinator .badge-dot { background-color: #92400E; }
+
+
+/* --- Custom Tab Styles --- */
+.nav-tabs .nav-link {
+  color: #6b7280; /* text-gray-500 */
+  border-width: 0 0 2px 0;
+  border-color: transparent;
+}
+.nav-tabs .nav-link.active {
+  color: #6d28d9 !important; /* text-violet-600 */
+  border-color: #6d28d9 !important;
+  background-color: transparent !important;
+}
+
+/* --- Button Variants --- */
+.btn-violet {
+  background-color: #6d28d9;
+  color: #fff;
+  border: none;
+}
+.btn-violet:hover {
+  background-color: #5b21b6;
+  color: #fff;
+}
