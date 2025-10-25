@@ -68,7 +68,7 @@ const create =  async (req, res) => {
 }
 
 // Update an existing organization's details.
-const update= async (req, res) => {
+const update = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -91,7 +91,25 @@ const update= async (req, res) => {
   }
 };
 
+// Delete an organization 
+const remove = async (req, res) => {
+  try {
+    const id = req.params.id;
 
+    const rowsDeleted = await Organization.destroy({
+      where: { id }
+    });
+
+    if (rowsDeleted === 0) {
+      return res.status(404).json({ message: 'Organization not found' });
+    }
+
+    res.json({ message: 'Organization deleted successfully' });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 // Get the list of users for a specific organization.
 const get_users_all = async (req, res) => {
@@ -132,4 +150,4 @@ const create_user = async (req, res) => {
     }
 }
 
-export { get_all , get_id , create , update, get_users_all , create_user };
+export { get_all , get_id , create , update, get_users_all , create_user , remove};

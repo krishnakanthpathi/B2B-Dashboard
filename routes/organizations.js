@@ -10,6 +10,8 @@ import { get_all } from '../controllers/organizations.js';
 import { get_id } from '../controllers/organizations.js';
 import { create } from '../controllers/organizations.js';
 import { update } from '../controllers/organizations.js';
+import { remove } from '../controllers/organizations.js';
+
 
 import { get_users_all } from '../controllers/organizations.js';
 import { create_user } from '../controllers/organizations.js';
@@ -37,5 +39,9 @@ router.get('/:id/users', get_users_all);
 // POST /api/organizations/:id/users
 // Add a new user to a specific organization (from the "Add User" modal).
 router.post('/:id/users', create_user);
+
+// DELETE /api/organizations/:id
+// Delete an organization by its ID.
+router.delete('/:id', remove);
 
 export default router;
