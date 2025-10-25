@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8080/api', // Adjust if your backend port is different
+  baseURL: 'https://b2b-dashboard-9725.onrender.com/api', // Adjust if your backend port is different
   headers: {
     'Content-Type': 'application/json',
   },
