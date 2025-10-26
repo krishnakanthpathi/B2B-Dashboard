@@ -72,10 +72,6 @@ export default function ManageOrganizations() {
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="h3">B2B organizations</h1>
                 <div className="d-flex align-items-center">
-                    <InputGroup className="me-3" style={{width: 'auto'}}>
-                        <InputGroup.Text><Search size={18} /></InputGroup.Text>
-                        <FormControl placeholder="Search..." />
-                    </InputGroup>
                     <Button variant="violet" onClick={() => setIsModalOpen(true)}>
                         <Plus size={20} className="me-2" />
                         Add organization
