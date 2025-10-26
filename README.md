@@ -49,6 +49,40 @@ The application provides a central platform for administrators to perform CRUD (
   * **Charting**: Recharts
   * **Icons**: Lucide React
 
+## Database Schema (ER Diagram)
+
+```mermaid
+erDiagram
+    Organization {
+        Integer id PK "Organization ID (PK)"
+        String name
+        String email
+        String slug
+        String status
+        String contact
+        String website
+        String phone
+        Text img
+        String primaryAdminName
+        String primaryAdminEmail
+        String supportEmail
+        String region
+        String timezone
+        String language
+        Integer maxCoordinators
+        Integer pendingRequests
+    }
+
+    User {
+        Integer id PK "User ID (PK)"
+        String name
+        String role
+        Integer organizationId FK "Organization ID (FK)"
+    }
+
+    Organization ||--o{ User : "has"
+```
+
 ## Getting Started
 
 To get a local copy up and running, follow these steps.
