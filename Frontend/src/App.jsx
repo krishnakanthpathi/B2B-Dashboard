@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<ManageOrganizations />} />
+        <Route path="/manage-b2b" element={<ManageOrganizations />} />
         <Route path="/organization/:id" element={<OrganizationDetail />} />
       </Routes>
     </Layout>
