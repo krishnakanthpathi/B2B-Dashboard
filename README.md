@@ -54,7 +54,7 @@ The application provides a central platform for administrators to perform CRUD (
 ```mermaid
 erDiagram
     Organization {
-        Integer id PK "Organization ID (PK)"
+        Integer id 
         String name
         String email
         String slug
