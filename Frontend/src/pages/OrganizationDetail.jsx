@@ -11,38 +11,6 @@ import Loader from '../components/Loader';
 import RightModal from '../components/RightModal';
 import { Mail, Phone, Globe, Building, Camera } from 'lucide-react'; 
 
-// CSS from the previous step remains the same.
-// Add this to your main CSS file.
-/*
-.profile-image-container {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-}
-.profile-image-container .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  border-radius: 0.25rem;
-}
-.profile-image-container:hover .overlay {
-  opacity: 1;
-}
-.profile-image-container .overlay.loading {
-  opacity: 1;
-  background-color: rgba(255, 255, 255, 0.8);
-}
-*/
 
 export default function OrganizationDetail() {
   const { id } = useParams();
@@ -106,8 +74,9 @@ export default function OrganizationDetail() {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Check file size (e.g., limit to 2MB) - IMPORTANT for Data URLs
+    // Check file size (e.g., limit to 10MB) - IMPORTANT for Data URLs
     if (file.size > 10 * 1024 * 1024) {
+      // Note: alert() is not ideal in React, consider a modal/toast
       alert('File is too large! Please select an image under 10MB.');
       if (fileInputRef.current) {
         fileInputRef.current.value = null;
@@ -168,21 +137,26 @@ export default function OrganizationDetail() {
 
   return (
     <>
-      {/* Include the CSS styles (e.g., inline or in your stylesheet) */}
-      <style>{`
-        .profile-image-container{position:relative;width:80px;height:80px;cursor:pointer}.profile-image-container .overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.5);color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease-in-out;border-radius:.25rem}.profile-image-container:hover .overlay{opacity:1}.profile-image-container .overlay.loading{opacity:1;background-color:rgba(255,255,255,.8)}
-      `}</style>
-
       <Breadcrumbs items={breadcrumbItems} />
 
       <Card className="shadow-sm border mb-4">
         <Card.Body className="p-4">
-          <div className="d-flex justify-content-between align-items-start">
-            <div className="d-flex">
+          {/* Responsive Main Container:
+            - Stacks "Info" and "Status" sections vertically on mobile (<md)
+            - Places them side-by-side on medium screens and up (flex-md-row)
+          */}
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-start">
+            
+            {/* Responsive Info Container (Left Side):
+              - Stacks "Image" and "Text Info" vertically on mobile (<sm)
+              - Places them side-by-side on small screens and up (flex-sm-row)
+              - Adds margin-bottom on mobile (mb-3) but not on medium+ (mb-md-0)
+            */}
+            <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start mb-3 mb-md-0">
               
               {/* --- Image with Hover-to-Upload --- */}
               <div 
-                className="profile-image-container me-4"
+                className="profile-image-container me-sm-4 mb-3 mb-sm-0" // Responsive margin
                 onClick={handleImageClick}
                 title="Change organization logo"
               >
@@ -202,7 +176,7 @@ export default function OrganizationDetail() {
                 {/* Overlay shown on hover or during loading */}
                 <div className={`overlay ${isUploadingImage ? 'loading' : ''}`}>
                   {isUploadingImage ? (
-                    <Spinner animation="border" size="sm" variant="primary" />
+                    <Spinner animation="border" size="sm" variant="light" />
                   ) : (
                     <Camera size={24} />
                   )}
@@ -218,25 +192,35 @@ export default function OrganizationDetail() {
                 accept="image/png, image/jpeg, image/gif"
               />
 
-              <div>
+              {/* Text Info */}
+              <div className="text-center text-sm-start"> {/* Center text on mobile, left-align on sm+ */}
                 <h1 className="h3 mb-2">{org.name}</h1>
-                <div className="d-flex text-muted small">
-                  <span className="d-flex align-items-center me-4">
+                {/* Responsive Contact Info:
+                  - Stacks contact items vertically on mobile (<sm)
+                  - Places them side-by-side on small screens and up (flex-sm-row)
+                */}
+                <div className="d-flex flex-column flex-sm-row text-muted small">
+                  <span className="d-flex align-items-center justify-content-center justify-content-sm-start me-sm-4 mb-2 mb-sm-0"> {/* Responsive margin & justification */}
                     <Mail size={16} className="me-2" />
                     {org.email || 'gitam@gitam.in'}
                   </span>
-                  <span className="d-flex align-items-center me-4">
+                  <span className="d-flex align-items-center justify-content-center justify-content-sm-start me-sm-4 mb-2 mb-sm-0"> {/* Responsive margin & justification */}
                     <Phone size={16} className="me-2" />
-                    {org.phone || '91 - 9676456543'}
+                    {org.contact || '91 - 9676456543'}
                   </span>
-                  <span className="d-flex align-items-center">
+                  <span className="d-flex align-items-center justify-content-center justify-content-sm-start"> {/* No margin on last item */}
                     <Globe size={16} className="me-2" />
                     {org.website || 'Gitam.edu'}
                   </span>
                 </div>
               </div>
             </div>
-            <div className="d-flex align-items-center">
+
+            {/* Status Container (Right Side):
+              - Aligns to the center on mobile (align-self-center)
+              - Aligns to center vertically on medium+ screens (align-self-md-center)
+            */}
+            <div className="d-flex align-items-center align-self-center align-self-md-start">
               <StatusPill status={org.status || 'Inactive'} />
               <Button 
                 variant="link" 
@@ -281,7 +265,7 @@ export default function OrganizationDetail() {
           <Form.Select
             name="status"
             value={currentStatus}
-            onChange={(e) => setCurrentStatus(e.target.value)}
+            onChange={(e) => setCurrentStatus(e.Ttarget.value)}
           >
             <option value="Active">Active</option>
             <option value="Blocked">Blocked</option>
@@ -292,3 +276,4 @@ export default function OrganizationDetail() {
     </>
   );
 }
+
