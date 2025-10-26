@@ -1,6 +1,4 @@
-Here is a professional README.md file created for your B2B Dashboard project, based on the complete codebase you provided.
 
------
 
 # B2B Organization Management Dashboard
 
@@ -120,5 +118,3 @@ To get a local copy up and running, follow these steps.
 
 4.  **Open the app:**
     Open [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173) (or the port specified in your terminal) to view the application in your browser.
-
------
